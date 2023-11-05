@@ -18,3 +18,9 @@ const HomeStyles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+export const options = {
+  headerRight: () => {
+    return <IconButton icon="magnify" onPress={() => {console.log("works")}}/>
+  }
+}
