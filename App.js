@@ -1,15 +1,20 @@
-import {AppRegistry, StyleSheet} from 'react-native';
-import {Appbar, DefaultTheme, PaperProvider} from "react-native-paper";
-import Home from "./components/pages/Home/Home";
-import Navbar from "./components/shared/core/Navbar";
+import {AppRegistry} from 'react-native';
+import {DefaultTheme, PaperProvider} from "react-native-paper";
+import Home, { options } from "./components/pages/Home/Home";
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <PaperProvider theme={DefaultTheme}>
-      <Navbar/>
-      <Home/>
-    </PaperProvider>
+    <NavigationContainer>
+      <PaperProvider theme={DefaultTheme}>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} options={options}/>
+        </Stack.Navigator>
+      </PaperProvider>
+    </NavigationContainer>
   );
 }
 
