@@ -1,21 +1,13 @@
-import {Button, Card, Text, Appbar} from "react-native-paper";
-import {StyleSheet, View} from "react-native";
+import {IconButton} from "react-native-paper";
+import {ScrollView, StyleSheet} from "react-native";
+import GroupCard from "../../shared/GroupCard";
+import GroupForm from "./GroupForm/GroupForm";
 export default function Home() {
   return(
-    <View style={HomeStyles.container}>
-      <Card>
-        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-        <Card.Content>
-          <Text variant="titleLarge">Card title</Text>
-          <Text variant="bodyMedium">Card content</Text>
-        </Card.Content>
-        <Card.Title title="Card Title" subtitle="Card Subtitle"/>
-        <Card.Actions>
-          <Button>Cancel</Button>
-          <Button>Ok</Button>
-        </Card.Actions>
-      </Card>
-    </View>
+    <ScrollView style={HomeStyles.container}>
+      <GroupForm/>
+      <GroupCard icon='magnify' title="Nazwa grupy" date='10.200.0.48' price='10zl'></GroupCard>
+    </ScrollView>
   )
 }
 
