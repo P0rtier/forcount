@@ -5,7 +5,6 @@ import GroupForm from "./GroupForm/GroupForm";
 export default function Home() {
   return(
     <ScrollView style={HomeStyles.container}>
-      <GroupForm/>
       <GroupCard icon='magnify' title="Nazwa grupy" date='10.200.0.48' price='10zl'></GroupCard>
     </ScrollView>
   )
