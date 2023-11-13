@@ -1,4 +1,4 @@
-import {Card, Icon} from "react-native-paper";
+import {Card, Icon, Text, useTheme} from "react-native-paper";
 import {View} from "react-native";
 
 export default function GroupCard({title, date, icon, price}) {
