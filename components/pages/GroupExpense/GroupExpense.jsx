@@ -1,7 +1,8 @@
 import {StyleSheet, View} from "react-native";
 import {Button, Chip, IconButton, Text, TextInput} from "react-native-paper";
 import {useState} from "react";
-export default function GroupExpanse(){
+
+export default function GroupExpanse() {
 
     const groupElement = {
         id: 0,
@@ -20,6 +21,7 @@ export default function GroupExpanse(){
         ]
     }
 
+    const [formError, setFormError] = useState(false);
     const [expenseTitle, setExpenseTitle] = useState("");
     const [expenseValue, setExpenseValue] = useState("");
     const [expenseAuthor, setExpenseAuthor] = useState("");
@@ -33,7 +35,6 @@ export default function GroupExpanse(){
         } else {
             setExpenseMembers([...expenseMembers, item]);
         }
-        console.log(expenseMembers);
     }
 
     const saveNewExpense = () =>{
@@ -51,52 +52,71 @@ export default function GroupExpanse(){
     }
 
     return (
-        <View style={GroupFormStyles.mainContainer}>
-            <IconButton
-                icon="cash"
-                size={70}
-            />
-            <TextInput
-                style={GroupFormStyles.input}
-                label="Title"
-                maxLength={50}
-                value={expenseTitle}
-                onChangeText={val => setExpenseTitle(val)}
-            />
-            <TextInput
-                style={GroupFormStyles.input}
-                label="Value"
-                maxLength={50}
-                value={expenseValue}
-                onChangeText={val => setExpenseValue(val)}
-            />
-            <TextInput
-                style={GroupFormStyles.input}
-                label="Payer"
-                maxLength={50}
-                value={expenseAuthor}
-                onChangeText={val => setExpenseAuthor(val)}
-            />
-            <Text variant="titleLarge">Choose expense members</Text>
-            <View style={GroupFormStyles.groupMembersList}>
-                {groupElement.members.map((item, index) =>
-                    <Chip key={index}
-                          style={GroupFormStyles.chipStyle}
-                          selected={expenseMembers.includes(item)}
-                          showSelectedCheck={true}
-                          showSelectedOver={true}
-                          onPress={() => toggleExpenseMember(item)}>{item}</Chip>
-                )}
+        <View style={{height: "100%"}}>
+            <View style={GroupExpenseStyles.mainContainer}>
+                <IconButton
+                    icon="cash"
+                    size={70}
+                />
+                <TextInput
+                    style={GroupExpenseStyles.input}
+                    label="Title"
+                    maxLength={50}
+                    value={expenseTitle}
+                    onChangeText={val => setExpenseTitle(val)}
+                />
+                <TextInput
+                    style={GroupExpenseStyles.input}
+                    label="Value"
+                    maxLength={50}
+                    value={expenseValue}
+                    onChangeText={val => setExpenseValue(val)}
+                />
+                {hasExpenseValueError() && <HelperText type="error" visible={true}>
+                    Provided value is not a valid number!
+                </HelperText>}
+                <TextInput
+                    style={GroupExpenseStyles.input}
+                    label="Payer"
+                    maxLength={50}
+                    value={expenseAuthor}
+                    onChangeText={val => setExpenseAuthor(val)}
+                />
+                {hasExpenseAuthorError() && <HelperText type="error" visible={true}>
+                    There is no such member in specified group!
+                </HelperText>}
+                <Text variant="titleLarge">Choose expense members</Text>
+                <View style={GroupExpenseStyles.groupMembersList}>
+                    {groupElement.members.map((item, index) =>
+                        <Chip key={index}
+                              style={GroupExpenseStyles.chipStyle}
+                              selected={expenseMembers.includes(item)}
+                              showSelectedCheck={true}
+                              showSelectedOver={true}
+                              onPress={() => toggleExpenseMember(item)}>{item}</Chip>
+                    )}
+                </View>
+                <View style={GroupExpenseStyles.buttonFooter}>
+                    <Button mode="contained" onPress={saveNewExpense}>Save</Button>
+                </View>
             </View>
-            <View style={GroupFormStyles.buttonFooter}>
-                <Button mode="contained" onPress={saveNewExpense}>Save</Button>
-            </View>
+            <Snackbar
+                icon="alert-circle"
+                visible={formError}
+                onDismiss={() => {setFormError(false)}}
+                action={{
+                    label: 'Close',
+                    onPress: () => {setFormError(false)
+                    }}
+                }>
+                Provide all required information!
+            </Snackbar>
         </View>
     )
 
 }
 
-const GroupFormStyles = StyleSheet.create({
+const GroupExpenseStyles = StyleSheet.create({
     mainContainer: {
         width: '95vw',
         flex: 1,

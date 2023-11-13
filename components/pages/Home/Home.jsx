@@ -151,8 +151,6 @@ const groups = [
 
 
 export default function Home({ navigation }) {
-    const theme = useTheme();
-
     return (
         <View>
             <ScrollView style={HomeStyles.scrollView}>
@@ -161,7 +159,7 @@ export default function Home({ navigation }) {
                                                             value={item.value} navigation={navigation}></GroupCard>)}
                 </View>
             </ScrollView>
-            <IconButton icon={'plus'} size={45} style={HomeStyles.bottomRightButton} mode="contained" onPress={() => navigation.navigate('GroupForm')}></IconButton>
+            <IconButton icon={'plus'} size={45} style={HomeStyles.bottomRightButton} mode="contained" onPress={() => navigation.navigate('New group')}></IconButton>
         </View>
     )
 }
