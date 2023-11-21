@@ -1,6 +1,9 @@
 import {StyleSheet, View} from "react-native";
 import {Button, Chip, IconButton, TextInput, useTheme} from "react-native-paper";
 import {useState} from "react";
+import {doc, setDoc, Timestamp} from "firebase/firestore";
+import {firestore} from "../../../../hooks/useFirebase";
+import {v4 as uuidv4} from 'uuid';
 
 export default function GroupForm({ navigation }) {
     const [groupName, setGroupName] = useState("");
@@ -15,11 +18,17 @@ export default function GroupForm({ navigation }) {
         setNewMember("");
     };
 
-    const saveNewGroup = () => {
+    const saveNewGroup = async () => {
         if (groupName === "") return;
         if (members.length === 0) return;
-        // ToDo: savuje grupe
-        console.log("tutaj savuje");
+        const docData = {
+            title: groupName,
+            members: members,
+            date: Timestamp.fromMillis(Date.now()),
+            value: 0
+        }
+        let id = uuidv4();
+        await setDoc(doc(firestore, "groups", id), docData);
         navigation.goBack();
     };
 
