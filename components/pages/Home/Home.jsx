@@ -2,20 +2,29 @@ import {IconButton} from "react-native-paper";
 import {ScrollView, StyleSheet, View} from "react-native";
 import GroupCard from "../../shared/GroupCard";
 import {useFirestore} from "../../../hooks/useFirebase";
+import {useCallback, useState} from "react";
+import {useFocusEffect} from '@react-navigation/native';
 
+export default function Home({navigation}) {
+    const [groups, setGroups] = useState([]);
+    const {refresh} = useFirestore('groups')
 
-
-export default function Home({ navigation }) {
-    const {documents} = useFirestore('groups');
+    useFocusEffect(
+        useCallback(() => {
+            refresh().then((value) => setGroups(value));
+        }, [])
+    );
 
     return (
         <View>
             <ScrollView style={HomeStyles.scrollView}>
                 <View style={HomeStyles.container}>
-                    {documents.map((item, index) => <GroupCard key={index} icon='magnify' item={item} navigation={navigation}></GroupCard>)}
+                    {groups.map((item, index) => <GroupCard key={index} icon='magnify' item={item}
+                                                               navigation={navigation}></GroupCard>)}
                 </View>
             </ScrollView>
-            <IconButton icon={'plus'} size={45} style={HomeStyles.bottomRightButton} mode="contained" onPress={() => navigation.navigate('New group')}></IconButton>
+            <IconButton icon={'plus'} size={45} style={HomeStyles.bottomRightButton} mode="contained"
+                        onPress={() => navigation.navigate('New group')}></IconButton>
         </View>
     )
 }
@@ -38,7 +47,9 @@ const HomeStyles = StyleSheet.create({
 });
 
 export const options = {
-  headerRight: () => {
-    return <IconButton icon="magnify" onPress={() => {console.log("works")}}/>
-  }
+    headerRight: () => {
+        return <IconButton icon="magnify" onPress={() => {
+            console.log("works")
+        }}/>
+    }
 }

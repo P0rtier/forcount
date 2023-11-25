@@ -1,6 +1,6 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import GroupBalance from "../GroupBalance/GroupBalance";
-import GroupAccount from "../GroupAccount/GroupAccount";
+import GroupExpenses from "../GroupExpenses/GroupExpenses";
 import GroupInfo from "../GroupInfo/GroupInfo";
 
 export default function GroupOverview(){
@@ -22,7 +22,7 @@ export default function GroupOverview(){
             />
             <Tab.Screen
                 name="Expenses screen"
-                component={GroupAccount}
+                component={GroupExpenses}
                 options={{ tabBarLabel: 'Expenses' }}
             />
             <Tab.Screen

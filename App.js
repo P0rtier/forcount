@@ -4,7 +4,7 @@ import Home from "./components/pages/Home/Home";
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import GroupForm from "./components/pages/Home/GroupForm/GroupForm";
-import GroupExpense from "./components/pages/GroupExpense/GroupExpense";
+import GroupExpense from "./components/pages/GroupExpenses/ExpenseForm/ExpenseForm";
 import GroupOverview from "./components/pages/GroupOverview/GroupOverview";
 
 const Stack = createNativeStackNavigator();

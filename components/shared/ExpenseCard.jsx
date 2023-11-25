@@ -9,6 +9,9 @@ export default function ExpenseCard({expanseInfo}) {
     const getTitle = (title) => {
         return <Text variant="titleLarge" style={{fontWeight: 'bold'}}>{title}</Text>
     }
+    const constructDate = (date) => {
+        return new Date(date.seconds * 1000).toLocaleDateString();
+    }
 
     return (
         <Card onPress={() => setVisible(true)} style={{padding: 10}}>
@@ -17,7 +20,7 @@ export default function ExpenseCard({expanseInfo}) {
                 <View style={{gap: 4}}>
                     <View style={{flexDirection: 'row', alignItems: "center", gap: 8}}>
                         <Icon size={19} source='calendar'></Icon>
-                        <Text>{new Date(expanseInfo.date).toLocaleDateString()}</Text>
+                        <Text>{constructDate(expanseInfo.date)}</Text>
                     </View>
                     <View style={{flexDirection: 'row', alignItems: "center", gap: 8}}>
                         <Icon size={20} source='account-circle'></Icon>

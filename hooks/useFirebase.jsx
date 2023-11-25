@@ -32,7 +32,6 @@ export const useFirestore = (collection_name, query) => {
         }
         const documents = querySnapshot.docs.map(doc => doc.data());
         setDocuments(documents);
-        console.log(documents);
         setLoading(false);
     }
 

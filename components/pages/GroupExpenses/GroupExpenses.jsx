@@ -1,38 +1,11 @@
 import {ScrollView, StyleSheet, View} from "react-native";
-import {IconButton, Text} from "react-native-paper";
+import {IconButton} from "react-native-paper";
 import ExpenseCard from "../../shared/ExpenseCard";
+import {useState} from "react";
 
-export default function GroupAccount({navigation}){
-    const mockedExpenses = [
-        {
-            title: "Paliwo",
-            date: Date.now(),
-            payedBy: "Kacper",
-            dividedBetween: ["Patryk", "Ernest", "Marcin", "Daniel", "Tomek"],
-            price: 125
-        },
-        {
-            title: "Paliwo",
-            date: Date.now(),
-            payedBy: "Kacper",
-            dividedBetween: ["Patryk", "Ernest"],
-            price: 125
-        },
-        {
-            title: "Paliwo",
-            date: Date.now(),
-            payedBy: "Kacper",
-            dividedBetween: ["Patryk", "Ernest"],
-            price: 125
-        },
-        {
-            title: "Paliwo",
-            date: Date.now(),
-            payedBy: "Kacper",
-            dividedBetween: ["Patryk", "Ernest"],
-            price: 125
-        }
-    ]
+
+export default function GroupExpenses({route, navigation}){
+    const [group, setGroup] = useState(route.params.group);
 
     return (
         <View style={{height: '100%'}}>
@@ -47,13 +20,12 @@ export default function GroupAccount({navigation}){
                     justifyContent: 'space-between',
                     alignItems: 'center'
                 }}>
-                    <Text variant="titleLarge" style={{paddingBottom: 16}}>Group Expenses</Text>
                 </View>
                 <View style={{
                     gap: 12,
                     height: '100%',
                 }}>
-                      {mockedExpenses.map((item, index) =>
+                      {group.expenses.map((item, index) =>
                            <ExpenseCard key={index} expanseInfo={item} ></ExpenseCard>
                        )}
                 </View>

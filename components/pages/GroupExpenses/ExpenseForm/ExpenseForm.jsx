@@ -1,25 +1,12 @@
 import {StyleSheet, View} from "react-native";
-import {Button, Chip, IconButton, Text, TextInput} from "react-native-paper";
+import {Button, Chip, HelperText, IconButton, Snackbar, Text, TextInput} from "react-native-paper";
 import {useState} from "react";
+import {doc, setDoc, Timestamp} from "firebase/firestore";
+import {firestore} from "../../../../hooks/useFirebase";
 
-export default function GroupExpanse() {
+export default function ExpenseForm({route, navigation}) {
 
-    const groupElement = {
-        id: 0,
-        title: 'Grupa 1',
-        date: '10.200.0.48',
-        value: '10',
-        members: ["Patryk", "Kacper", "Ernest", "Damian", "Marcin", "Daniel", "Tomek"],
-        expenses: [
-            {
-                title: "Paliwo",
-                date: Date.now(),
-                payedBy: "Kacper",
-                dividedBetween: ["Patryk", "Ernest"],
-                price: 125
-            }
-        ]
-    }
+    const groupElement = route.params.group;
 
     const [formError, setFormError] = useState(false);
     const [expenseTitle, setExpenseTitle] = useState("");
@@ -37,18 +24,34 @@ export default function GroupExpanse() {
         }
     }
 
-    const saveNewExpense = () =>{
-        if(expenseTitle === "" || expenseValue === "" || expenseValue.length === 0) return;
-        if(!groupElement.members.find(member => member.toLowerCase() === expenseAuthor.toLowerCase())) return;
+    const hasExpenseValueError = () => {
+        return expenseValue !== "" && isNaN(Number(expenseValue));
+    }
+
+    const hasExpenseAuthorError = () => {
+        return expenseAuthor !== "" && !groupElement.members.find(member => member === expenseAuthor)
+    }
+
+    const saveNewExpense = async () =>{
+        if(expenseTitle === "" || expenseValue === "" || isNaN(Number(expenseValue))) {
+            setFormError(true);
+            return;
+        }
+        if(!groupElement.members.find(member => member === expenseAuthor)){
+            setFormError(true);
+            return;
+        }
         const expenseItem = {
             title: expenseTitle,
-            date: Date.now(),
+            date: Timestamp.fromMillis(Date.now()),
             payedBy: expenseAuthor,
             dividedBetween: expenseMembers,
             price: Number(expenseValue)
         }
-        console.log(expenseItem);
-        return expenseItem;
+        groupElement.expenses.push(expenseItem);
+        groupElement.value += expenseItem.price;
+        await setDoc(doc(firestore, "groups", groupElement.id), groupElement);
+        navigation.navigate("Expenses screen", {groupElement});
     }
 
     return (

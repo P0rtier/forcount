@@ -1,5 +1,6 @@
 import {ScrollView} from "react-native";
 import GroupInfoCard from "./GroupInfoCard/GroupInfoCard";
+import {useState} from "react";
 
 export default function GroupInfo() {
     return (

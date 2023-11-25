@@ -35,6 +35,10 @@ export default function GroupBalance(){
         calculateBalances();
     }, []);
 
+    useEffect(() => {
+        calculateBalances();
+    }, []);
+
     const calculateBalances = () => {
         const userBalances = {};
         const paymentInformation = [];
@@ -73,7 +77,6 @@ export default function GroupBalance(){
 
         // Update state with calculated balances and payment information
         setBalances(userBalances);
-
         setPaymentInfo(paymentInformation);
     };
 
@@ -110,6 +113,7 @@ export default function GroupBalance(){
 const styles = StyleSheet.create({
     container: {
         padding: 16,
+        gap: 20
     },
     title: {
         fontSize: 18,
@@ -125,10 +129,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     paymentInfoTitle: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginTop: 16,
-        marginBottom: 8,
+        fontSize: 18,
+        fontWeight: 'bold'
     },
     paymentInfoContainer: {
         marginBottom: 8,
