@@ -36,6 +36,7 @@ export default function GroupForm({navigation}) {
         }
         await setDoc(doc(firestore, "groups", id), docData);
         navigation.goBack();
+        window.location.reload();
     };
 
     const removeFromList = (itemToRemove) => {

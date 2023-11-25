@@ -2,10 +2,16 @@ import {ScrollView} from "react-native";
 import GroupInfoCard from "./GroupInfoCard/GroupInfoCard";
 import {useState} from "react";
 
-export default function GroupInfo() {
+export default function GroupInfo({route}) {
+    const [group, setGroup] = useState(route.params.group);
+
+    const constructDate = (date) => {
+        return new Date(date.seconds * 1000);
+    }
     return (
         <ScrollView style={{padding: 16}}>
-            <GroupInfoCard title='Grupa 1' value={600} date='12.10.12' members={["Mateusz", "Marek", "Marek", "Marek", "Marek", "Marek", "Marek", "Marek"]} />
+            <GroupInfoCard title={group.title} value={group.value} date={constructDate(group.date)} members={group.members} />
         </ScrollView>
+
     );
 }

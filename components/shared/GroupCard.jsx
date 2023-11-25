@@ -12,15 +12,15 @@ export default function GroupCard({item, navigation}) {
         </View>)
     }
   return(
-    <Card style={{flex: 1, flexDirection: 'column', paddingVertical: 8}} onPress={() => navigation.navigate("Group overview")}>
+    <Card style={{flex: 1, flexDirection: 'column', paddingVertical: 8}} onPress={() => navigation.navigate("Group overview", {item})}>
         <Card.Title title={getTitle()}></Card.Title>
         <Card.Content style={{flexDirection:"row", gap: 10}}>
             <Icon size={20} source={"calendar"}></Icon>
-            {date.getHours() + ":" + date.getMinutes() + ", "+ date.toDateString()}
+            <Text>{date.toLocaleDateString()}</Text>
         </Card.Content>
         <Card.Content style={{flexDirection:"row", gap: 10}}>
             <Icon size={20} source={"cash"}></Icon>
-            <>{item.value}zł</>
+            <Text>{item.value}zł</Text>
         </Card.Content>
     </Card>
   )

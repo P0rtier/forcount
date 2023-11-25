@@ -30,7 +30,7 @@ export default function GroupExpenses({route, navigation}){
                        )}
                 </View>
             </ScrollView>
-            <IconButton icon={'plus'} size={45} style={GroupAccountStyles.bottomRightButton} mode="contained" onPress={() => navigation.navigate('New group expense')}></IconButton>
+            <IconButton icon={'plus'} size={45} style={GroupAccountStyles.bottomRightButton} mode="contained" onPress={() => navigation.navigate('New group expense', {group})}></IconButton>
         </View>
     )
 }

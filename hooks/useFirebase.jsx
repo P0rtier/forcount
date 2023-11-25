@@ -33,12 +33,17 @@ export const useFirestore = (collection_name, query) => {
         const documents = querySnapshot.docs.map(doc => doc.data());
         setDocuments(documents);
         setLoading(false);
+        return documents;
     }
 
     useEffect(() => {
         getCollection();
     }, [collection, query]);
 
-    return {documents, loading};
+    const refresh = () => {
+        return(getCollection())
+    }
+
+    return {documents, loading, refresh, getCollection};
 };
 
