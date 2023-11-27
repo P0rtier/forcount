@@ -8,6 +8,10 @@ export default function ExpenseModal({expanseInfo, visible, closeFunction}) {
         return <Text variant="titleLarge" style={{fontWeight: 'bold'}}>{title}</Text>
     }
 
+    const constructDate = (date) => {
+        return new Date(date.seconds * 1000).toLocaleDateString();
+    }
+
     return (
         <Portal>
             <Dialog visible={visible} onDismiss={() => closeFunction(false)}>
@@ -16,7 +20,7 @@ export default function ExpenseModal({expanseInfo, visible, closeFunction}) {
                     <View style={{gap: 4}}>
                         <View style={{flexDirection: 'row', alignItems: "center", gap: 8}}>
                             <Icon size={19} source='calendar'></Icon>
-                            <Text>{new Date(expanseInfo.date).toLocaleDateString()}</Text>
+                            <Text>{constructDate(expanseInfo.date)}</Text>
                         </View>
                         <View style={{flexDirection: 'row', alignItems: "center", gap: 8}}>
                             <Icon size={20} source='account-circle'></Icon>
